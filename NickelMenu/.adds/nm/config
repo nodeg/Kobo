@@ -2,18 +2,11 @@
 # Home/Main Screen
 menu_item :main   :Battery stats  :cmd_output :500 :/mnt/onboard/.adds/battcalc.sh
 menu_item :main   :Memory stats    :cmd_output :500 :free -m
-menu_item :main   :Hard disk stats :cmd_output :500 :df -h
+menu_item :main   :Hard disk stats :cmd_output :500 :df -h | grep "/dev/"
 menu_item :main   :IP Address     :cmd_output :500 :/sbin/ifconfig | /usr/bin/awk '/inet addr/{print substr($2,6)}'
 menu_item :main   :Kernel Version :cmd_output :500 :uname -a
 menu_item :main   :Dump Syslog :cmd_spawn :logread > /mnt/onboard/.adds/syslog.log
-menu_item :main   :USB Connection     :nickel_misc :force_usb_connection
-menu_item :main   :Telnet :cmd_spawn :quiet:/bin/mount -t devpts | /bin/grep -q /dev/pts || { /bin/mkdir -p /dev/pts && /bin/mount -t devpts devpts /dev/pts; }
-  chain_success   :cmd_spawn :quiet:/usr/bin/pkill -f "^/usr/bin/tcpsvd -E 0.0.0.0 1023" || true && exec /usr/bin/tcpsvd -E 0.0.0.0 1023 /usr/sbin/telnetd -i -l /bin/login
-  chain_success   :dbg_toast :Started Telnet server on port 1023 (admin/admin).
 #
-menu_item :main   :Articles/Pocket    :nickel_open :library :pocket
-menu_item :main   :Browser            :nickel_browser :modal
-menu_item :main   :Wishlist           :nickel_open :discover :wishlist
 menu_item :main   :Screen Invert  :nickel_setting :toggle :invert
   chain_success   :power              :reboot
 menu_item :main   :Screensaver Status :cmd_output :500:quiet:test -e /mnt/onboard/.kobo/screensaver_old
@@ -31,6 +24,14 @@ menu_item :main   :WiFi               :nickel_setting :toggle :force_wifi
    chain_success  :nickel_wifi        :toggle
 menu_item :main   :Shutdown           :power :shutdown
 menu_item :main   :Reboot             :power :reboot
+#
+menu_item :main   :USB Connection     :nickel_misc :force_usb_connection
+menu_item :main   :Telnet :cmd_spawn :quiet:/bin/mount -t devpts | /bin/grep -q /dev/pts || { /bin/mkdir -p /dev/pts && /bin/mount -t devpts devpts /dev/pts; }
+  chain_success   :cmd_spawn :quiet:/usr/bin/pkill -f "^/usr/bin/tcpsvd -E 0.0.0.0 1023" || true && exec /usr/bin/tcpsvd -E 0.0.0.0 1023 /usr/sbin/telnetd -i -l /bin/login
+  chain_success   :dbg_toast :Started Telnet server on port 1023 (admin/admin).
+#
+menu_item :main   :Articles/Pocket    :nickel_open :library :pocket
+menu_item :main   :Browser            :nickel_browser :modal
 #
 # -----------------------------------------------------------------------
 # Reader
