@@ -1,0 +1,30 @@
+Introduction
+============
+
+This is the successor of the great weather forecast hack by [Kevin Short][1]. It was succesfully tested on a Kobo Mini and should also run on the Kobo Touch. It could be ported to The Kobo Glo which has a higher screen resolution.
+
+I extended Kevin's application by: 
+
+*   current condition display, e.g. wind speed/direction, humidity, pressure, precipitation 
+*   location with area/region/country and date
+*   comprehensive set of weather icons by [MerlinTheRed][2]
+*   word wrapping for long condition texts
+*   english/german localization (selectable via config.py)
+
+For installation instructions read the [INSTALL.text](kobo-weather-app/src/master/INSTALL.text).
+
+Cheers,
+David Weese, July 2013.
+
+Examples
+========
+
+The first screenshot shows the U.S. localization (i.e. cp config.py.us config.py):
+
+   ![screenshot](screenshot_scaled_en.png)
+
+The second screenshot shows the german localization (i.e. cp config.py.de config.py):
+   ![screenshot](screenshot_scaled.png)
+
+[1]: http://www.mobileread.com/forums/showthread.php?t=194376
+[2]: http://merlinthered.deviantart.com/art/plain-weather-icons-157162192

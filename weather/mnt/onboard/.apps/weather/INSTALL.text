@@ -1,0 +1,61 @@
+1. Basic Installation
+========================
+
+We are going to install the following prerequisites:
+
+*   Kobo firmware <= 2.5.2 (for 2.6 and later the pygame libraries seems to be broken), see [forum][1]
+*   telnet remote login, see [wiki][2]
+*   python with pygame, see [Kevin Short's article][3]
+
+1.1. Downgrade the firmware
+---------------------------
+
+Before you start you should make a backup of the whole microSD card first. That can be done after opening the device
+and copying it under Linux/Mac via dd or without opening it (there is a description in the web)
+
+To install the correct firmware manually, reset to factory settings first. Then download 2.5.2 for Glo/Mini/Touch from
+[here][1] and extract. Then connect to your Kobo via USB and copy the 3 files to the hidden .kobo folder, eject the USB
+drive and unplug.
+
+1.2. Enable Telnet and FTP access
+---------------------------------
+
+After the update is done, reconnect and copy the KoboRoot.tgz from ["The easy method"][2] to the .kobo folder, eject
+and unplug.
+
+1.3. Install Python and PyGame
+------------------------------
+
+Finally copy the KoboRoot.tgz (see [here][3]) with python for the Kobo Touch and eject+unplug. The telnet to your Kobo
+and execute:
+/mnt/onboard/.python/install-python.sh 
+
+1.4. Install this weather app
+-----------------------------
+
+Connect to your Kobo via USB and Create a new folder in the hidden .apps folder, e.g. koboWeatherNew, and extract the files of the trunk into it. To run the app telnet to your device and run "python weather.py" in the created folder.
+
+2. Advanced Installation
+========================
+
+In this section, I will describe how to set up cron scripts and wakeup/sleep scripts to manually turn on the device
+every hour for an update and put to sleep. It was reported that in this way the device can be kept alive for a month
+without loading.
+
+More to come.
+
+3. Known Issues
+===============
+
+The following issues have to be overcome:
+
+*  The full_update binary seems to have problems on my Kobo Mini. After each update one can still see shadows of the
+   previous image. It might be related to the 16bit framebuffer which seems to be different from Kobo Wifi/Touch.
+   However, the much slower variant that creates a raw file with python that is piped to /dev/fb manually works.
+*  busybox rtcwake seems to be not implemented for the busybox shipped with my Kobo firmware. Instead I have to set up
+   an ARM build environment and manully compile a binary from the [sources][4].
+
+[1]: http://www.mobileread.com/forums/showthread.php?t=185660
+[2]: http://wiki.mobileread.com/wiki/Kobo_WiFi_Hacking
+[3]: http://www.mobileread.com/forums/showthread.php?t=194376
+[4]: https://github.com/kobolabs/busybox/blob/kobo/util-linux/rtcwake.c
