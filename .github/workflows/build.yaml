@@ -3,20 +3,19 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Weather statistics
+    name: Create and deploy KoboRoot for the weather statistics
     runs-on: ubuntu-latest
-    container: ghcr.io/pgaskin/nickeltc:1.0
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        submodules: true
-    - name: Build weather statistics
+        path: repo
+    - name: Build KoboRoot
       run: |
-        cd weather
-        make all koboroot
+        cd repo
+        ./createKoboRoot.sh
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: Weather statistics
-        path: KoboRoot.tgz
+        name: KoboRoot.tgz
+        path: repo/KoboRoot.tgz
