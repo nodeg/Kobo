@@ -6,7 +6,7 @@ This repository contains the stuff I use with my Kobo Libra Colour.
 
 - [NickelMenu](https://github.com/pgaskin/NickelMenu)
 - [NickelClock](https://github.com/shermp/NickelClock)
-- [kobo-stuff](https://www.mobileread.com/forums/showthread.php?t=254214)
+- [kobo-stuff](kobostuff/) by [NiLuJe](https://www.mobileread.com/forums/showthread.php?t=254214)
 
 ## Scripts
 
